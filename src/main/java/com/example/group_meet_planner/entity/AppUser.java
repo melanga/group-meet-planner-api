@@ -2,18 +2,28 @@ package com.example.group_meet_planner.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Email;
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Table(name = "users")
-public class AppUser {
+public class AppUser extends Auditable {
     @Id
     private String username;
     private String firstName;
     private String lastName;
     @Column(unique = true)
+    @Email()
     private String email;
     private String password;
+    @OneToMany(mappedBy = "createdBy")
+    private List<Group> createdGroups;
+    @ManyToMany(mappedBy = "members")
+    private List<Group> groups;
     @Enumerated(EnumType.STRING)
     private Role role;
 }
