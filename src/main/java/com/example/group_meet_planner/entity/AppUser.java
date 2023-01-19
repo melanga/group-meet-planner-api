@@ -30,4 +30,13 @@ public class AppUser extends Auditable {
     private List<Group> groups;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Override
+    public String toString(){
+        return "AppUser{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' + "}";
+    }
 }

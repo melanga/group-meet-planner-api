@@ -18,6 +18,9 @@ public class AuthService {
     }
 
     public ResponseEntity<String> register(AppUser appUser) {
+        if(appUserRepository.existsByUsername(appUser.getUsername())) {
+            return ResponseEntity.badRequest().body("Username already exists");
+        }
         try {
             appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
             appUser.setRole(Role.USER);
