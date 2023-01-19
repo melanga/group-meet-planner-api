@@ -1,4 +1,4 @@
-package com.example.group_meet_planner.entity;
+package com.example.group_meet_planner.entity.abstracts;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

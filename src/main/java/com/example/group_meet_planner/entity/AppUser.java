@@ -1,5 +1,7 @@
 package com.example.group_meet_planner.entity;
 
+import com.example.group_meet_planner.entity.abstracts.Auditable;
+import com.example.group_meet_planner.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +22,8 @@ public class AppUser extends Auditable {
     @Email()
     private String email;
     private String password;
+    @OneToMany(mappedBy = "createdBy")
+    private List<TimeSlot> timeSlots;
     @OneToMany(mappedBy = "createdBy")
     private List<Group> createdGroups;
     @ManyToMany(mappedBy = "members")

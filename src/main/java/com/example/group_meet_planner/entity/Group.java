@@ -1,5 +1,6 @@
 package com.example.group_meet_planner.entity;
 
+import com.example.group_meet_planner.entity.abstracts.Auditable;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +22,8 @@ public class Group extends Auditable {
     @ManyToOne
     @JoinColumn(name = "created_by")
     private AppUser createdBy;
+    @OneToMany(mappedBy = "group")
+    private List<TimeSlot> timeSlots;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<AppUser> members;
 }

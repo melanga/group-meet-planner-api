@@ -1,7 +1,7 @@
 package com.example.group_meet_planner.service;
 
 import com.example.group_meet_planner.entity.AppUser;
-import com.example.group_meet_planner.entity.Role;
+import com.example.group_meet_planner.entity.enums.Role;
 import com.example.group_meet_planner.repository.AppUserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
