@@ -25,10 +25,8 @@ public class AppUser extends Auditable {
     private String password;
     @OneToMany(mappedBy = "createdBy")
     private List<TimeSlot> timeSlots;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "createdBy")
     private List<Group> createdGroups;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToMany(mappedBy = "members")
     private List<Group> groups;
     @Enumerated(EnumType.STRING)

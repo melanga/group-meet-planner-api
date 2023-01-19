@@ -1,5 +1,6 @@
 package com.example.group_meet_planner.controller;
 
+import com.example.group_meet_planner.dto.GroupDTO;
 import com.example.group_meet_planner.entity.AppUser;
 import com.example.group_meet_planner.entity.Group;
 import com.example.group_meet_planner.service.AppUserService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/group")
@@ -18,19 +20,19 @@ public class GroupController {
     private final AppUserService appUserService;
 
     @PostMapping("/create")
-    public Group createGroup(@RequestBody Group group, Principal principal) {
+    public GroupDTO createGroup(@RequestBody Group group, Principal principal) {
         AppUser createdBy = appUserService.findByUsername(principal.getName());
         group.setCreatedBy(createdBy);
         return groupService.createGroup(group);
     }
 
     @GetMapping("/get/{id}")
-    public Group getGroup(@PathVariable String id) {
+    public GroupDTO getGroup(@PathVariable String id) {
         return groupService.getGroup(id);
     }
 
     @PutMapping("/update/{id}")
-    public Group updateGroup(@RequestBody Group group, @PathVariable String id) {
+    public GroupDTO updateGroup(@RequestBody Group group, @PathVariable String id) {
         group.setId(id);
         return groupService.updateGroup(group);
     }
@@ -47,12 +49,12 @@ public class GroupController {
     }
 
     @GetMapping("/owned/{username}")
-    public Object getOwnedGroups(@PathVariable String username) {
+    public List<GroupDTO> getOwnedGroups(@PathVariable String username) {
         return groupService.getOwnedGroups(username);
     }
 
     @GetMapping("/joined/{username}")
-    public Object getJoinedGroups(@PathVariable String username) {
+    public List<GroupDTO> getJoinedGroups(@PathVariable String username) {
         return groupService.getJoinedGroups(username);
     }
 }
