@@ -2,6 +2,7 @@ package com.example.group_meet_planner.entity;
 
 import com.example.group_meet_planner.entity.abstracts.Auditable;
 import com.example.group_meet_planner.entity.enums.Role;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,15 +25,17 @@ public class AppUser extends Auditable {
     private String password;
     @OneToMany(mappedBy = "createdBy")
     private List<TimeSlot> timeSlots;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "createdBy")
     private List<Group> createdGroups;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToMany(mappedBy = "members")
     private List<Group> groups;
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
-    public String toString(){
+    public String toString() {
         return "AppUser{" +
                 "username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
