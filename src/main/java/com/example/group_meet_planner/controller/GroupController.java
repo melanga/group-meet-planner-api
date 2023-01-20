@@ -1,16 +1,15 @@
 package com.example.group_meet_planner.controller;
 
-import com.example.group_meet_planner.dto.GroupDTO;
 import com.example.group_meet_planner.entity.AppUser;
 import com.example.group_meet_planner.entity.Group;
 import com.example.group_meet_planner.service.AppUserService;
 import com.example.group_meet_planner.service.GroupService;
+import com.example.group_meet_planner.util.ResponseEntityBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/group")
@@ -20,41 +19,53 @@ public class GroupController {
     private final AppUserService appUserService;
 
     @PostMapping("/create")
-    public GroupDTO createGroup(@RequestBody Group group, Principal principal) {
+    public ResponseEntity<Object> createGroup(@RequestBody Group group, Principal principal) {
         AppUser createdBy = appUserService.findByUsername(principal.getName());
         group.setCreatedBy(createdBy);
-        return groupService.createGroup(group);
+        return ResponseEntityBuilder.builder()
+                .body(groupService.createGroup(group))
+                .errorMessage("Group creation failed").build();
     }
 
     @GetMapping("/get/{id}")
-    public GroupDTO getGroup(@PathVariable String id) {
-        return groupService.getGroup(id);
+    public ResponseEntity<Object> getGroup(@PathVariable String id) {
+        return ResponseEntityBuilder.builder()
+                .body(groupService.getGroup(id))
+                .errorMessage("Group not found")
+                .build();
     }
 
     @PutMapping("/update/{id}")
-    public GroupDTO updateGroup(@RequestBody Group group, @PathVariable String id) {
+    public ResponseEntity<Object> updateGroup(@RequestBody Group group, @PathVariable String id) {
         group.setId(id);
-        return groupService.updateGroup(group);
+        return ResponseEntityBuilder.builder()
+                .body(groupService.updateGroup(group))
+                .errorMessage("Group not found")
+                .build();
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteGroup(@PathVariable String id) {
+    public ResponseEntity<Object> deleteGroup(@PathVariable String id) {
         System.out.println("delete");
-        try {
-            groupService.deleteGroup(id);
-            return ResponseEntity.ok("Group deleted");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Group not found");
-        }
+        return ResponseEntityBuilder.builder()
+                .body(groupService.deleteGroup(id))
+                .errorMessage("Group not found")
+                .build();
     }
 
     @GetMapping("/owned/{username}")
-    public List<GroupDTO> getOwnedGroups(@PathVariable String username) {
-        return groupService.getOwnedGroups(username);
+    public ResponseEntity<Object> getOwnedGroups(@PathVariable String username) {
+        return ResponseEntityBuilder.builder()
+                .body(groupService.getOwnedGroups(username))
+                .errorMessage("User not found")
+                .build();
     }
 
     @GetMapping("/joined/{username}")
-    public List<GroupDTO> getJoinedGroups(@PathVariable String username) {
-        return groupService.getJoinedGroups(username);
+    public ResponseEntity<Object> getJoinedGroups(@PathVariable String username) {
+        return ResponseEntityBuilder.builder()
+                .body(groupService.getJoinedGroups(username))
+                .errorMessage("User not found")
+                .build();
     }
 }
