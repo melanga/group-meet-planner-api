@@ -6,7 +6,6 @@ import com.example.group_meet_planner.repository.GroupRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GroupService {
@@ -17,19 +16,39 @@ public class GroupService {
     }
 
     public GroupDTO createGroup(Group group) {
+        Group createdGroup = groupRepository.save(group);
+        if (createdGroup.getId() == null)
+            return null;
         return new GroupDTO(groupRepository.save(group));
     }
 
     public GroupDTO getGroup(String id) {
-        return new GroupDTO(groupRepository.findGroupById(id));
+        if (groupRepository.existsById(id)) {
+            return new GroupDTO(groupRepository.findGroupById(id));
+        } else {
+            return null;
+        }
     }
 
     public GroupDTO updateGroup(Group group) {
-        return new GroupDTO(groupRepository.save(group));
+        Group updateGroup = groupRepository.findGroupById(group.getId());
+        if (updateGroup != null) {
+            updateGroup.setName(group.getName());
+            updateGroup.setDescription(group.getDescription());
+            return new GroupDTO(groupRepository.save(updateGroup));
+        } else {
+            return null;
+        }
     }
 
-    public void deleteGroup(String id) {
-        groupRepository.deleteById(id);
+    public String deleteGroup(String id) {
+        Group group = groupRepository.findGroupById(id);
+        if (group != null) {
+            groupRepository.deleteById(id);
+            return "Group Deleted Successfully";
+        } else {
+            return null;
+        }
     }
 
     public List<GroupDTO> getOwnedGroups(String username) {

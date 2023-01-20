@@ -20,7 +20,7 @@ public class Group extends Auditable {
     @Column(columnDefinition = "VARCHAR(255) DEFAULT 'Undefined'")
     private String description;
     @ManyToOne
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", nullable = false, updatable = false)
     private AppUser createdBy;
     @OneToMany(mappedBy = "group")
     private List<TimeSlot> timeSlots;
