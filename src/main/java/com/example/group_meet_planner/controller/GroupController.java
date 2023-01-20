@@ -68,4 +68,20 @@ public class GroupController {
                 .errorMessage("User not found")
                 .build();
     }
+
+    @PostMapping("/{groupId}/add/{username}")
+    public ResponseEntity<Object> addUserToGroup(@PathVariable String groupId, @PathVariable String username) {
+        return ResponseEntityBuilder.builder()
+                .body(groupService.addUserToGroup(groupId, username))
+                .errorMessage("User not found")
+                .build();
+    }
+
+    @PostMapping("/{groupId}/remove/{username}")
+    public ResponseEntity<Object> removeUserFromGroup(@PathVariable String groupId, @PathVariable String username) {
+        return ResponseEntityBuilder.builder()
+                .body(groupService.removeUserFromGroup(groupId, username))
+                .errorMessage("User not found")
+                .build();
+    }
 }
