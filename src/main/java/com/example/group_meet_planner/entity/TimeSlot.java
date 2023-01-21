@@ -17,7 +17,7 @@ public class TimeSlot extends Auditable {
     private TimeSlotId id;
     @ManyToOne
     @MapsId("user_username")
-    @JoinColumn(name="created_by")
+    @JoinColumn(name = "created_by", updatable = false, nullable = false)
     private AppUser createdBy;
     @ManyToOne
     @MapsId("group_id")
