@@ -1,4 +1,4 @@
-package com.example.group_meet_planner.service;
+package com.example.group_meet_planner.service.auth;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

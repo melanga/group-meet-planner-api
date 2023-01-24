@@ -1,4 +1,4 @@
-package com.example.group_meet_planner.service;
+package com.example.group_meet_planner.service.auth;
 
 import com.example.group_meet_planner.entity.AppUser;
 import com.example.group_meet_planner.model.User;

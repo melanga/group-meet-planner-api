@@ -1,6 +1,6 @@
 package com.example.group_meet_planner.config;
 
-import com.example.group_meet_planner.service.AppUserDetailsService;
+import com.example.group_meet_planner.service.auth.AppUserDetailsService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

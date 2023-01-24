@@ -2,8 +2,8 @@ package com.example.group_meet_planner.controller;
 
 import com.example.group_meet_planner.entity.AppUser;
 import com.example.group_meet_planner.model.LoginRequest;
-import com.example.group_meet_planner.service.AuthService;
-import com.example.group_meet_planner.service.TokenService;
+import com.example.group_meet_planner.service.auth.AuthService;
+import com.example.group_meet_planner.service.auth.TokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

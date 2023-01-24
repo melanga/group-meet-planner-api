@@ -1,4 +1,4 @@
-package com.example.group_meet_planner.service;
+package com.example.group_meet_planner.service.auth;
 
 import com.example.group_meet_planner.entity.AppUser;
 import com.example.group_meet_planner.entity.enums.Role;
@@ -18,7 +18,7 @@ public class AuthService {
     }
 
     public ResponseEntity<String> register(AppUser appUser) {
-        if(appUserRepository.existsByUsername(appUser.getUsername())) {
+        if (appUserRepository.existsByUsername(appUser.getUsername())) {
             return ResponseEntity.badRequest().body("Username already exists");
         }
         try {

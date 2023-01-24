@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -22,8 +21,6 @@ public class TimeSlot extends Auditable {
     @ManyToOne
     @MapsId("group_id")
     private Group group;
-    @NotBlank
-    private Timestamp startTime;
-    @NotBlank
-    private Timestamp endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }
